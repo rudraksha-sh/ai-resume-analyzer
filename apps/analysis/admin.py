@@ -7,11 +7,12 @@ from .models import Analysis
 class AnalysisAdmin(admin.ModelAdmin):
 
     list_display = (
-        "id",
-        "resume",
-        "ats_score",
-        "analyzed_at",
-    )
+    "id",
+    "resume",
+    "ats_score",
+    "match_score",
+    "analyzed_at",
+    )   
 
     list_filter = (
         "ats_score",

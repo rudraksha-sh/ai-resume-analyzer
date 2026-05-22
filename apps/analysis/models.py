@@ -15,6 +15,10 @@ class Analysis(models.Model):
         default=0
     )
 
+    match_score = models.IntegerField(
+        default=0
+    )
+
     skills_found = models.JSONField(
         default=list
     )

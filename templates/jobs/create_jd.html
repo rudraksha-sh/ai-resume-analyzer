@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+        Job Description Matcher
+    </title>
+
+</head>
+
+<body>
+
+    <h1>
+        Paste Job Description 💼
+    </h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+
+            Analyze Resume
+
+        </button>
+
+    </form>
+
+    {% if result %}
+
+    <hr>
+
+    <h2>
+        Match Score:
+        {{ result.match_score }}%
+    </h2>
+
+    <h2>
+        Missing Skills
+    </h2>
+
+    <h2>
+        Suggestions
+    </h2>
+
+    <ul>
+
+        {% for suggestion in result.suggestions %}
+
+        <li>
+            {{ suggestion }}
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+    <ul>
+
+        {% for skill in result.missing_skills %}
+
+        <li>
+            {{ skill }}
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+</body>
+
+</html>
