@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import (
+    render,
+    redirect
+)
 
 from .forms import JobDescriptionForm
 
@@ -8,6 +11,10 @@ from ai_engine.skill_extraction.extractor import (
 
 from ai_engine.matching.matcher import (
     match_skills
+)
+
+from ai_engine.matching.semantic_matcher import (
+    semantic_match
 )
 
 from ai_engine.suggestions.generator import (
@@ -22,7 +29,9 @@ def create_job_description(request):
 
     form = JobDescriptionForm()
 
-    result = None
+    resume_id = request.GET.get(
+        "resume_id"
+    )
 
     if request.method == "POST":
 
@@ -40,14 +49,16 @@ def create_job_description(request):
                 jd_text
             )
 
-            latest_resume = Resume.objects.last()
+            resume = Resume.objects.get(
+                id=resume_id
+            )
 
-            latest_analysis = Analysis.objects.get(
-                resume=latest_resume
+            analysis = Analysis.objects.get(
+                resume=resume
             )
 
             resume_skills = (
-                latest_analysis.skills_found
+                analysis.skills_found
             )
 
             result = match_skills(
@@ -59,27 +70,26 @@ def create_job_description(request):
                 result["missing_skills"]
             )
 
-            result["suggestions"] = suggestions
-
-            latest_analysis.match_score = (
+            analysis.match_score = (
                 result["match_score"]
             )
 
-            latest_analysis.missing_skills = (
+            analysis.missing_skills = (
                 result["missing_skills"]
             )
 
-            latest_analysis.save()
-
-            latest_analysis.suggestions = (
+            analysis.suggestions = (
                 suggestions
             )
 
+            analysis.save()
+
+            return redirect(
+                f"/analysis/{analysis.id}/"
+            )
+
     context = {
-
-        "form": form,
-
-        "result": result
+        "form": form
     }
 
     return render(

@@ -1,0 +1,265 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+        Dashboard
+    </title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+</head>
+
+<body class="bg-black text-white min-h-screen">
+
+    <!-- Navbar -->
+
+    <nav class="border-b border-zinc-800">
+
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <h1 class="text-2xl font-bold text-cyan-400">
+
+                Dashboard 🚀
+
+            </h1>
+
+            <a href="/accounts/logout/" class="text-red-400 hover:text-red-300">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- Content -->
+
+    <section class="max-w-7xl mx-auto px-6 py-10">
+
+        <h2 class="text-4xl font-bold mb-10">
+
+            Your Resume Analyses
+
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            {% for analysis in analyses %}
+
+            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6">
+
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4">
+
+                    Resume #{{ analysis.resume.id }}
+
+                </h3>
+
+                <div class="space-y-3">
+
+                    <p>
+
+                        ATS Score:
+                        <span class="text-cyan-400">
+
+                            {{ analysis.ats_score }}
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        Match Score:
+                        <span class="text-purple-400">
+
+                            {{ analysis.match_score }}
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        Semantic Score:
+                        <span class="text-green-400">
+
+                            {{ analysis.semantic_score }}
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+                <a href="/analysis/{{ analysis.id }}/"
+                    class="mt-6 inline-block bg-cyan-500 hover:bg-cyan-400 text-black px-5 py-2 rounded-xl font-semibold">
+
+                    View Analysis
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <!-- Analytics Charts -->
+
+    <section class="mt-20">
+
+        <h2 class="text-4xl font-bold mb-10">
+
+            Analytics 📈
+
+        </h2>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+
+            <!-- ATS Chart -->
+
+            <div class="bg-zinc-900 p-8 rounded-3xl border border-cyan-500">
+
+                <h3 class="text-2xl font-bold text-cyan-400 mb-6">
+
+                    ATS Score Trend
+
+                </h3>
+
+                <canvas id="atsChart"></canvas>
+
+            </div>
+
+            <!-- Match Chart -->
+
+            <div class="bg-zinc-900 p-8 rounded-3xl border border-purple-500">
+
+                <h3 class="text-2xl font-bold text-purple-400 mb-6">
+
+                    JD Match Trend
+
+                </h3>
+
+                <canvas id="matchChart"></canvas>
+
+            </div>
+
+            <!-- Semantic Chart -->
+
+            <div class="bg-zinc-900 p-8 rounded-3xl border border-green-500 lg:col-span-2">
+
+                <h3 class="text-2xl font-bold text-green-400 mb-6">
+
+                    Semantic Match Trend
+
+                </h3>
+
+                <canvas id="semanticChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </section>
+    <script>
+
+        const labels = JSON.parse('{{ context_labels|escapejs }}')
+
+        const atsScores = JSON.parse('{{ ats_scores|escapejs }}')
+
+        const matchScores = JSON.parse('{{ match_scores|escapejs }}')
+
+        const semanticScores = JSON.parse('{{ semantic_scores|escapejs }}')
+
+
+        new Chart(
+            document.getElementById("atsChart"),
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [{
+
+                        label: "ATS Score",
+
+                        data: atsScores,
+
+                        borderColor: "#22d3ee",
+
+                        backgroundColor: "#22d3ee",
+
+                        tension: 0.4
+                    }]
+                }
+            }
+        )
+
+
+        new Chart(
+            document.getElementById("matchChart"),
+            {
+
+                type: "bar",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [{
+
+                        label: "JD Match",
+
+                        data: matchScores,
+
+                        backgroundColor: "#a855f7",
+                    }]
+                }
+            }
+        )
+
+
+        new Chart(
+            document.getElementById("semanticChart"),
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [{
+
+                        label: "Semantic Match",
+
+                        data: semanticScores,
+
+                        borderColor: "#22c55e",
+
+                        backgroundColor: "#22c55e",
+
+                        tension: 0.4
+                    }]
+                }
+            }
+        )
+
+    </script>
+
+</body>
+
+</html>

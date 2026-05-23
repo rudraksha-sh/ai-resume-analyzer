@@ -31,6 +31,11 @@ urlpatterns = [
         "jobs/",
         include("apps.jobs.urls")
     ),
+
+    path(
+        "accounts/",
+        include("apps.accounts.urls")
+    ),
 ]
 
 if settings.DEBUG:

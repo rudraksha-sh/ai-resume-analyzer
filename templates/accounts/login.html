@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+        Login
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/output.css' %}"
+    >
+
+</head>
+
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+
+    <div class="bg-zinc-900 p-10 rounded-3xl border border-purple-500 w-full max-w-md">
+
+        <h1 class="text-4xl font-bold text-purple-400 mb-8">
+
+            Welcome Back 😈
+
+        </h1>
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="w-full bg-purple-500 hover:bg-purple-400 text-black py-3 rounded-xl font-semibold"
+            >
+
+                Login
+
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

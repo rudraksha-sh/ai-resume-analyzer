@@ -24,10 +24,12 @@ def match_skills(
     else:
 
         match_score = int(
+
             (
                 len(matched_skills)
                 /
                 len(jd_skills)
+
             ) * 100
         )
 

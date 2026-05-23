@@ -22,6 +22,12 @@ from ai_engine.scoring.ats_score import (
     calculate_ats_score
 )
 
+
+from django.contrib.auth.decorators import (
+    login_required  # type: ignore
+)
+
+@login_required
 def upload_resume(request):
 
     form = ResumeUploadForm()
@@ -75,6 +81,8 @@ def upload_resume(request):
          
             resume.extracted_text = cleaned_text
 
+            resume.user = request.user
+
             resume.save()
 
             analysis = Analysis.objects.create(
@@ -91,7 +99,7 @@ def upload_resume(request):
             )
 
             return redirect(
-                f"/analysis/{analysis.id}/"
+                f"/jobs/create/?resume_id={resume.id}"
             )
 
     context = {

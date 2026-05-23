@@ -19,6 +19,10 @@ class Analysis(models.Model):
         default=0
     )
 
+    semantic_score = models.FloatField(
+        default=0
+    )
+
     skills_found = models.JSONField(
         default=list
     )

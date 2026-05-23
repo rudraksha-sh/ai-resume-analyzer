@@ -1,22 +1,167 @@
+{% load static %}
+
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>
         AI Resume Analyzer
     </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/output.css' %}"
+    >
+
 </head>
 
-<body>
+<body class="bg-black text-white">
 
-    <h1>
-        AI Resume Analyzer 🚀
-    </h1>
+    <!-- Navbar -->
 
-    <a href="/resumes/upload/">
-        Upload Resume
-    </a>
+    <nav class="border-b border-zinc-800">
+
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <h1 class="text-2xl font-bold text-cyan-400">
+
+                AI Resume Analyzer
+
+            </h1>
+
+            <div class="space-x-4">
+
+                <a href="/resumes/upload/"
+                   class="hover:text-cyan-400 transition">
+
+                    Upload
+
+                </a>
+
+                <a href="/jobs/create/"
+                   class="hover:text-cyan-400 transition">
+
+                    Match JD
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- Hero Section -->
+
+    <section class="min-h-[80vh] flex items-center justify-center">
+
+        <div class="text-center max-w-4xl px-6">
+
+            <h1 class="text-6xl font-extrabold leading-tight mb-6">
+
+                Analyze Your Resume
+                <span class="text-cyan-400">
+
+                    With AI
+
+                </span>
+
+            </h1>
+
+            <p class="text-zinc-400 text-xl mb-10">
+
+                ATS scoring, skill extraction,
+                job matching, and AI suggestions
+                powered by Django + NLP 🚀
+
+            </p>
+
+            <div class="flex justify-center gap-6">
+
+                <a href="/resumes/upload/"
+                   class="bg-cyan-500 hover:bg-cyan-400 text-black px-8 py-4 rounded-2xl font-semibold transition">
+
+                    Upload Resume
+
+                </a>
+
+                <a href="/jobs/create/"
+                   class="border border-cyan-500 hover:bg-cyan-500 hover:text-black px-8 py-4 rounded-2xl font-semibold transition">
+
+                    Match Job Description
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+
+    <section class="max-w-7xl mx-auto px-6 pb-20">
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl">
+
+                <h2 class="text-2xl font-bold text-cyan-400 mb-4">
+
+                    ATS Scoring
+
+                </h2>
+
+                <p class="text-zinc-400">
+
+                    Analyze resumes and generate ATS scores instantly.
+
+                </p>
+
+            </div>
+
+            <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl">
+
+                <h2 class="text-2xl font-bold text-cyan-400 mb-4">
+
+                    Skill Extraction
+
+                </h2>
+
+                <p class="text-zinc-400">
+
+                    Detect technical skills automatically using NLP.
+
+                </p>
+
+            </div>
+
+            <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl">
+
+                <h2 class="text-2xl font-bold text-cyan-400 mb-4">
+
+                    JD Matching
+
+                </h2>
+
+                <p class="text-zinc-400">
+
+                    Compare resumes with job descriptions intelligently.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </body>
 

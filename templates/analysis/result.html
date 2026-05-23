@@ -1,45 +1,195 @@
+{% load static %}
+
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>
         Resume Analysis
     </title>
 
+    <link
+        rel="stylesheet"
+        href="{% static 'css/output.css' %}"
+    >
+
 </head>
 
-<body>
+<body class="bg-black text-white min-h-screen">
 
-    <h1>
-        Resume Analysis 🚀
-    </h1>
+    <!-- Navbar -->
 
-    <hr>
+    <nav class="border-b border-zinc-800">
 
-    <h2>
-        ATS Score:
-        {{ analysis.ats_score }}/100
-    </h2>
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-    <hr>
+            <h1 class="text-2xl font-bold text-cyan-400">
 
-    <h2>
-        Skills Found
-    </h2>
+                AI Resume Analyzer
 
-    <ul>
+            </h1>
 
-        {% for skill in analysis.skills_found %}
+            <a href="/"
+               class="hover:text-cyan-400 transition">
 
-            <li>
-                {{ skill }}
-            </li>
+                Home
 
-        {% endfor %}
+            </a>
 
-    </ul>
+        </div>
+
+    </nav>
+
+    <!-- Dashboard -->
+
+    <section class="max-w-7xl mx-auto px-6 py-12">
+
+        <h1 class="text-5xl font-bold mb-10">
+
+            Resume Analysis 🚀
+
+        </h1>
+
+        <!-- Score Cards -->
+
+        <div class="grid md:grid-cols-2 gap-8 mb-10">
+
+            <!-- ATS -->
+
+            <div class="bg-zinc-900 border border-cyan-500 p-8 rounded-3xl">
+
+                <h2 class="text-2xl font-bold text-cyan-400 mb-4">
+
+                    ATS Score
+
+                </h2>
+
+                <div class="text-7xl font-extrabold">
+
+                    {{ analysis.ats_score }}
+
+                    <span class="text-3xl text-zinc-400">
+
+                        /100
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- Match -->
+
+            <div class="bg-zinc-900 border border-purple-500 p-8 rounded-3xl">
+
+                <h2 class="text-2xl font-bold text-purple-400 mb-4">
+
+                    JD Match Score
+
+                </h2>
+
+                <div class="text-7xl font-extrabold">
+
+                    {{ analysis.match_score }}
+
+                    <span class="text-3xl text-zinc-400">
+
+                        %
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Skills -->
+
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl mb-10">
+
+            <h2 class="text-3xl font-bold mb-6 text-cyan-400">
+
+                Skills Found
+
+            </h2>
+
+            <div class="flex flex-wrap gap-4">
+
+                {% for skill in analysis.skills_found %}
+
+                    <span class="bg-cyan-500/20 border border-cyan-500 text-cyan-300 px-4 py-2 rounded-xl">
+
+                        {{ skill }}
+
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- Missing Skills -->
+
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl mb-10">
+
+            <h2 class="text-3xl font-bold mb-6 text-red-400">
+
+                Missing Skills
+
+            </h2>
+
+            <div class="flex flex-wrap gap-4">
+
+                {% for skill in analysis.missing_skills %}
+
+                    <span class="bg-red-500/20 border border-red-500 text-red-300 px-4 py-2 rounded-xl">
+
+                        {{ skill }}
+
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- Suggestions -->
+
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl">
+
+            <h2 class="text-3xl font-bold mb-6 text-green-400">
+
+                AI Suggestions
+
+            </h2>
+
+            <div class="space-y-4">
+
+                {% for suggestion in analysis.suggestions %}
+
+                    <div class="bg-zinc-800 p-4 rounded-2xl border border-zinc-700">
+
+                        {{ suggestion }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
 
 </body>
 
