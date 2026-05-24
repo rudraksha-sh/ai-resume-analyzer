@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+        Resume Analysis
+    </title>
+
+</head>
+
+<body>
+
+    <h1>
+        Resume Analysis 🚀
+    </h1>
+
+    <hr>
+
+    <h2>
+        ATS Score:
+        {{ analysis.ats_score }}/100
+    </h2>
+
+    <hr>
+
+    <h2>
+        Skills Found
+    </h2>
+
+    <ul>
+
+        {% for skill in analysis.skills_found %}
+
+            <li>
+                {{ skill }}
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</body>
+
+</html>
